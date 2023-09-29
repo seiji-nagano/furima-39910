@@ -2,14 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options              |
-| ------------------ | ------ | -----------          |
-| nickname           | string | NOT NULL             |
-| email              | string | NOT NULL,ユニーク制約 |
-| password           | string | NOT NULL             |
-| real_name          | string | NOT NULL             |
-| main_name          | string | NOT NULL             |
-| date_of_birth      | string | NOT NULL             |
+| Column             | Type   | Options                 |
+| ------------------ | ------ | -----------             |
+| nickname           | string | null: false             |
+| email              | string | null: false,unique: true |
+| encrypted_password | string | null: false             |
+| real_last_name     | string | null: false             |
+| real_first_name    | string | null: false             |
+| main_last_name     | string | null: false             |
+| main_first_name    | string | null: false             |
+| date_of_birth      | date   | null: false             |
 
 
 
@@ -22,18 +24,17 @@
 
 ## items テーブル
 
-| Column            | Type         | Options              |
-| ------            | ------       | -----------          |
-| image             |              |                      |
-| title             | string       | NOT NULL             |
-| explanation       | text         | NOT NULL             |
-| category          | string       | NOT NULL             |
-| situation         | string       | NOT NULL             |
-| liability         | string       | NOT NULL             |
-| area              | string       | NOT NULL             |
-| delivery_days     | string       | NOT NULL             |
-| price             | string       | NOT NULL             |
-| item_user_id      | references   | NOT NULL,外部キー    |
+| Column            | Type         | Options                 |
+| ------            | ------       | -----------             |
+| title             | string       | null: false             |
+| explanation       | text         | null: false             |
+| category_id       | integer      | null: false             |
+| situation_id      | integer      | null: false             |
+| liability_id      | integer      | null: false             |
+| prefecture_id     | integer      | null: false             |
+| delivery_days_id  | integer      | null: false             |
+| price             | integer      | null: false             |
+| user              | references   | null: false,外部キー    |
 
 
 
@@ -48,8 +49,8 @@
 
 | Column      | Type       | Options                        |
 | -------     | ---------- | ------------------------------ |
-| buy_user_id | references | NOT NULL,外部キー               |
-| item_id     | references | NOT NULL,外部キー               |
+| user        | references | null: false,外部キー            |
+| item        | references | null: false,外部キー            |
 
 ### Association
 
@@ -63,13 +64,13 @@
 
 | Column            | Type         | Options              |
 | ------            | ------       | -----------          |
-| post_code         | string       | NOT NULL             |
-| prefectures       | string       | NOT NULL             |
-| municipalities    | string       | NOT NULL             |
-| street_address    | string       | NOT NULL             |
-| building_name     | string       | NOT NULL             |
-| telephone_number  | string       | NOT NULL             |
-| buy_id            | references   | NOT NULL,外部キー    |
+| post_code         | string       | null: false          |
+| prefecture_id     | integer      | null: false          |
+| municipalities    | string       | null: false          |
+| street_address    | string       | null: false          |
+| building_name     | string       |                      |
+| telephone_number  | string       | null: false          |
+| buy               | references   | null: false,外部キー  |
 
 
 
