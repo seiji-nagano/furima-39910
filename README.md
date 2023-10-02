@@ -24,17 +24,17 @@
 
 ## items テーブル
 
-| Column            | Type         | Options                 |
-| ------            | ------       | -----------             |
-| title             | string       | null: false             |
-| explanation       | text         | null: false             |
-| category_id       | integer      | null: false             |
-| situation_id      | integer      | null: false             |
-| liability_id      | integer      | null: false             |
-| prefecture_id     | integer      | null: false             |
-| delivery_days_id  | integer      | null: false             |
-| price             | integer      | null: false             |
-| user              | references   | null: false,外部キー    |
+| Column            | Type         | Options                          |
+| ------            | ------       | -----------                      |
+| title             | string       | null: false                      |
+| explanation       | text         | null: false                      |
+| category_id       | integer      | null: false                      |
+| situation_id      | integer      | null: false                      |
+| liability_id      | integer      | null: false                      |
+| prefecture_id     | integer      | null: false                      |
+| delivery_days_id  | integer      | null: false                      |
+| price             | integer      | null: false                      |
+| user              | references   | null: false,foreign_key: true    |
 
 
 
@@ -47,10 +47,10 @@
 
 ## buys テーブル
 
-| Column      | Type       | Options                        |
-| -------     | ---------- | ------------------------------ |
-| user        | references | null: false,外部キー            |
-| item        | references | null: false,外部キー            |
+| Column      | Type       | Options                                  |
+| -------     | ---------- | ------------------------------           |
+| user        | references | null: false,foreign_key: true            |
+| item        | references | null: false,foreign_key: true            |
 
 ### Association
 
@@ -62,15 +62,15 @@
 
 ## addresses テーブル
 
-| Column            | Type         | Options              |
-| ------            | ------       | -----------          |
-| post_code         | string       | null: false          |
-| prefecture_id     | integer      | null: false          |
-| municipalities    | string       | null: false          |
-| street_address    | string       | null: false          |
-| building_name     | string       |                      |
-| telephone_number  | string       | null: false          |
-| buy               | references   | null: false,外部キー  |
+| Column            | Type         | Options                        |
+| ------            | ------       | -----------                    |
+| post_code         | string       | null: false                    |
+| prefecture_id     | integer      | null: false                    |
+| municipalities    | string       | null: false                    |
+| street_address    | string       | null: false                    |
+| building_name     | string       |                                |
+| telephone_number  | string       | null: false                    |
+| buy               | references   | null: false,foreign_key: true  |
 
 
 
