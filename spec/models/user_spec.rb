@@ -27,25 +27,50 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
+      it 'passwordが英数混合でないと登録できない' do
+        @user.password = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password must include at least one letter and one digit")
+      end
       it 'real_last_nameが空では登録できない' do
         @user.real_last_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Real last name can't be blank")
+      end
+      it 'real_last_nameが全角文字でないと登録できない' do
+        @user.real_last_name = 'Yamada' 
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Real last name must be full-width characters (kanji, hiragana, katakana)")
       end
       it 'real_first_nameが空では登録できない' do
         @user.real_first_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Real first name can't be blank")
       end
+      it 'real_first_nameが全角文字でないと登録できない' do
+        @user.real_first_name = 'Taro' 
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Real first name must be full-width characters (kanji, hiragana, katakana)")
+      end
       it 'main_last_nameが空では登録できない' do
         @user.main_last_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Main last name can't be blank")
       end
+      it 'main_last_nameが全角カタカナでないと登録できない' do
+        @user.main_last_name = 'やまだ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Main last name must be full-width katakana")
+      end
       it 'main_first_nameが空では登録できない' do
         @user.main_first_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Main first name can't be blank")
+      end
+      it 'main_first_nameが全角カタカナでないと登録できない' do
+        @user.main_first_name = 'たろう'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Main first name must be full-width katakana")
       end
       it 'date_of_birthが空では登録できない' do
         @user.date_of_birth = ''
