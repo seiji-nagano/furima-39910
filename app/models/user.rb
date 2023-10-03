@@ -1,21 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-  validates :real_last_name, format: { with: /\A[ァ-ヶー－]+\z/, message: "must be full-width katakana" }, if: :is_kana_name?
-  validates :real_first_name, format: { with: /\A[ァ-ヶー－]+\z/, message: "must be full-width katakana" }, if: :is_kana_name?
-  validates :main_last_name, format: { with: /\A[ァ-ヶー－]+\z/, message: "must be full-width katakana" }, unless: :is_kana_name?
-  validates :main_first_name, format: { with: /\A[ァ-ヶー－]+\z/, message: "must be full-width katakana" }, unless: :is_kana_name?
-  validates :date_of_birth, presence: true
-  validates :password, presence: true, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d).+\z/, message: "must include at least one letter and one digit" }
-
-  # has_many :items
-  # has_many :buys
-end
-
-def is_kana_name?
-  real_last_name.present? && real_first_name.present?
+  with_options presence: true do
+    validates :nickname, :date_of_birth, :password_confirmation
+    validates :real_first_name, :real_last_name, format: { with: /\A[ぁ-んァ-ン一-龥々]/, message: "全角ひらがな、全角カタカナ、漢字で入力して下さい" }
+    validates :main_first_name, :main_last_name, format: { with: /\A[ァ-ヶー－]+\z/, message: "全角カタカナで入力して下さい" }
+  end
+  validates :password, :password_confirmation,
+  format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: "must include at least one letter and one digit" }
 end
