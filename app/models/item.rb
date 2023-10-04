@@ -3,14 +3,31 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :title, presence: true
-  validates :explanation, presence: true
-  validates :category_id, presence: true
-  validates :situation_id, presence: true
-  validates :liability_id, presence: true
-  validates :prefecture_id, presence: true
-  validates :delivery_days_id, presence: true
-  validates :price, presence: true
-  validates :image, presence: true
+  with_options presence: true do
+    validates :title
+    validates :explanation
+    validates :category_id
+    validates :situation_id
+    validates :liability_id
+    validates :prefecture_id
+    validates :delivery_days_id
+    validates :price
+    validates :image
+  end
+
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
+    validates :category_id
+    validates :situation_id
+    validates :liability_id
+    validates :prefecture_id
+    validates :delivery_days_id
+  end
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :situation
+  belongs_to :liability
+  belongs_to :prefecture
+  belongs_to :delivery_days
 
 end
