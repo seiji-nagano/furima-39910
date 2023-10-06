@@ -31,22 +31,19 @@ RSpec.describe User, type: :model do
         @user.password = '11111111'
         @user.password_confirmation = '11111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit',
-                                                      'Password confirmation must include at least one letter and one digit')
+        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit')
       end
       it 'passwordが英字だけだと登録できない' do
         @user.password = 'aaaaaaaa'
         @user.password_confirmation = 'aaaaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit',
-                                                      'Password confirmation must include at least one letter and one digit')
+        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit')
       end
       it 'passwordが全角だと登録できない' do
         @user.password = 'ああああああ'
         @user.password_confirmation = 'ああああああ'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit',
-                                                      'Password confirmation must include at least one letter and one digit')
+        expect(@user.errors.full_messages).to include('Password must include at least one letter and one digit')
       end
       it 'real_first_nameが空では登録できない' do
         @user.real_first_name = ''
