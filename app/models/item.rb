@@ -11,7 +11,7 @@ class Item < ApplicationRecord
     validates :liability_id
     validates :prefecture_id
     validates :delivery_days_id
-    validates :price, numericality: { in: 300..9999999 }
+    validates :price, numericality: { only_integer: true, in: 300..9999999 }
     validates :image
   end
 
