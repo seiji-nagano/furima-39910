@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_one :buy
+  #has_one :buy
   belongs_to :user
   has_one_attached :image
 
@@ -11,7 +11,7 @@ class Item < ApplicationRecord
     validates :liability_id
     validates :prefecture_id
     validates :delivery_days_id
-    validates :price, numericality: { in: 300..9999999 }, format: { with: /\A[0-9]+\z/ }
+    validates :price, numericality: { in: 300..9999999 }
     validates :image
   end
 

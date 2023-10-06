@@ -28,27 +28,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
       it 'category_idが未選択だと出品できない' do
-        @item.category_id = nil
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it 'situation_idが未選択だと出品できない' do
-        @item.situation_id = nil
+        @item.situation_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Situation can't be blank")
       end
       it 'liability_idが未選択だと出品できない' do
-        @item.liability_id = nil
+        @item.liability_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Liability can't be blank")
       end
       it 'prefecture_idが未選択だと出品できない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
       it 'delivery_days_idが未選択だと出品できない' do
-        @item.delivery_days_id = nil
+        @item.delivery_days_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery days can't be blank")
       end
@@ -61,6 +61,21 @@ RSpec.describe Item, type: :model do
         @item.price = "２０００"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceが300未満の場合出品できない' do
+        @item.price = "299"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be in 300..9999999")
+      end
+      it 'priceが9_999_999超え出品できない' do
+        @item.price = "10000000"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be in 300..9999999")
+      end
+      it 'userが紐付いていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
