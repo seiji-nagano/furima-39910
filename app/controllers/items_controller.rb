@@ -18,6 +18,18 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
+  def edit
+    if user_signed_in? && current_user == @item.user
+      render :edit
+    else
+      redirect_to root_path
+    end
+  end
+
   private
   def item_params
     params.require(:item).permit(:title, :image, :explanation, :category_id, :situation_id, :liability_id, :prefecture_id, :delivery_days_id, :price).merge(user_id: current_user.id)
