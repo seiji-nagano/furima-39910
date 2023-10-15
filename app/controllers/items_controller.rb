@@ -22,13 +22,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  #def edit
-    #if user_signed_in? && current_user == @item.user
-      #render :edit
-    #else
-      #redirect_to root_path
-    #end
-  #end
+  def edit
+    @item = Item.find(params[:id])
+  end
 
   private
   def item_params
