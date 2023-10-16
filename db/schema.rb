@@ -46,19 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_022818) do
     t.string "street_address", null: false
     t.string "building_name"
     t.string "telephone_number", null: false
-    t.bigint "buy_id", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buy_id"], name: "index_addresses_on_buy_id"
-  end
-
-  create_table "buys", charset: "utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "item_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_buys_on_item_id"
-    t.index ["user_id"], name: "index_buys_on_user_id"
+    t.index ["order_id"], name: "index_addresses_on_order_id"
   end
 
   create_table "items", charset: "utf8", force: :cascade do |t|
@@ -74,6 +65,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_022818) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "orders", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -96,8 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_022818) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "buys"
-  add_foreign_key "buys", "items"
-  add_foreign_key "buys", "users"
+  add_foreign_key "addresses", "orders"
   add_foreign_key "items", "users"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
 end

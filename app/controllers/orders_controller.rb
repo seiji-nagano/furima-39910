@@ -1,10 +1,10 @@
-class BuysController < ApplicationController
+class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
-    @buyform = BuyForm.new
+    @orderform = OrderForm.new
   end
 
   def create
   end
-  
+
 end
