@@ -30,4 +30,8 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :delivery_days
 
+  def available?
+    order.nil?
+  end
+
 end

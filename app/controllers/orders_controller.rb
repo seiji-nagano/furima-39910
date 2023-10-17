@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :check_item_availability, only: [:index]
+
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item = Item.find(params[:item_id])
@@ -31,6 +33,13 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def check_item_availability
+    @item = Item.find(params[:item_id])
+    unless @item.available? && current_user != @item.user
+      redirect_to root_path
+    end
   end
 
 end
